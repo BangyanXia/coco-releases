@@ -1,0 +1,9 @@
+{
+  "name": "coco-chat",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "durable_objects": { "bindings": [{ "name": "QUOTA", "class_name": "Quota" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Quota"] }]
+}
