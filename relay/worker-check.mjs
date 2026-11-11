@@ -24,6 +24,9 @@ test('固定上游和模型、去除工具与凭据、脱敏上游错误',async(
     assert.equal(u,'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions');
     assert.equal(i.headers.Authorization,'Bearer upstream-test');assert.ok(!i.body.includes(invite));
     const b=JSON.parse(i.body);assert.equal(b.model,'gemini-flash-lite-latest');assert.equal(b.max_tokens,512);assert.ok(!b.tools);
+    assert.ok(b.messages[0].content.startsWith('你是温柔、细心、偶尔俏皮的猫咪伙伴 Coco。'));
+    assert.ok(b.messages[0].content.endsWith('\nCoco'));
+    assert.deepEqual(b.messages.slice(1),body.messages.slice(1));
     return Response.json({private:'secret',choices:[{message:{content:'收到'}}]});
   });
   assert.deepEqual(await out.json(),{choices:[{message:{role:'assistant',content:'收到'}}]});
